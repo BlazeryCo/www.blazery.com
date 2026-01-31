@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy BlazeTV</title>
+     <link rel="icon" href="logod.png">
+
+
+    <!-- Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+  <script src="cart.js"></script>
+
+</head>
+<body>
+
+     <header class="fixed-header">
+        <nav class="navbar">
+
+    <div class="nav-logo">
+        <a href="index.html"><img src="blicon.png" alt="1"></a>
+    </div>
+    
+    <ul class="nav-menu">
+        <a class="nav-item" href="newblazery.html">Blazery</a>
+        <a class="nav-item" href="blazetv.html">BlazeTV</a>
+        <a class="nav-item" href="bspbuy.html">BSP</a>
+        <a class="nav-item" href="blazeosbuy.html">BlazeOS</a>
+
+        <!-- <li class="nav-item" href="#">Store</li> -->
+    </ul>
+    <div class="nav-cart" id="cartIcon">
+  <img src="cart.png" alt="Cart">
+</nav>
+    </header>
+
+ <div class="cart-overlay" id="cartOverlay"></div>
+
+  <!-- CART PANEL (ВНЕ header) -->
+  <div class="cart-panel" id="cartPanel">
+    <div class="cart-header">
+      <h2 class="cart-title">Cart</h2>
+      <button class="cart-close" id="cartClose">✕</button>
+    </div>
+
+    <div class="cart-content">
+      <p class="cart-empty">Your cart is empty</p>
+      <div class="cart-items"></div>
+    </div>
+
+    <div class="cart-footer">
+      <div class="cart-total">
+        Total: <span id="cartTotal">$0.00</span>
+      </div>
+            <a href="payment.html" class="deco"><button class="cart-pay" id="cartPay">Pay</button></a>
+
+    </div>
+  </div>
+
+
+
+<section class="blz-section">
+  <div class="blz-container">
+
+    <!-- LEFT -->
+    <div class="blz-left">
+      <img src="BLAZETVNEW2.png" alt="Blazery Device">
+    </div>
+
+    <!-- RIGHT -->
+    <div class="blz-right">
+      <h1 class="blz-title">Buy BlazeTV</h1>
+
+      <!-- MODELS -->
+      <div class="blz-block">
+        <h3>Choose your model</h3>
+
+        <label class="blz-option">
+          <input type="radio" name="model" value="89" checked>
+          <div>
+            <strong>Wi-Fi</strong>
+            <span>64GB storage</span>
+          </div>
+          <span class="blz-price">$89</span>
+        </label>
+
+        <label class="blz-option">
+          <input type="radio" name="model" value="119">
+          <div>
+            <strong>Wi-Fi</strong>
+            <span>128GB storage</span>
+          </div>
+          <span class="blz-price">$119</span>
+        </label>
+      </div>
+
+
+
+      <!-- CARE -->
+      <div class="blz-block">
+        <h3>Blazery Safe</h3>
+
+        <label class="blz-option">
+          <input type="radio" name="care" value="9.99" checked>
+          <div>
+            <strong>Blazery Safe</strong>
+            <span>Extended protection</span>
+          </div>
+          <span class="blz-price">$9.99</span>
+        </label>
+
+        <label class="blz-option">
+          <input type="radio" name="care" value="0">
+          <div>
+            <strong>No coverage</strong>
+            <span>Standard warranty</span>
+          </div>
+        </label>
+      </div>
+
+
+      <div class="blz-block">
+  <h3>Flow+</h3>
+
+  <label class="blz-option">
+    <input type="radio" name="storage" value="0" checked>
+    <div>
+      <strong>Base</strong>
+      <span>1 Month Subscribtion</span>
+    </div>
+    <span class="blz-price">Included</span>
+  </label>
+
+  <label class="blz-option">
+    <input type="radio" name="storage" value="39">
+    <div>
+      <strong>Plus</strong>
+      <span>1 Year Subscribtion</span>
+    </div>
+    <span class="blz-price">$39</span>
+  </label>
+</div>
+
+
+      <!-- SUMMARY -->
+      <div class="blz-summary">
+        <p class="blz-summary-title">Total</p>
+
+        <!-- PRICE ANIMATION BLOCK (можно удалить целиком) -->
+        <p class="blz-summary-price">
+          $<span id="blz-total" class="blz-animate-price">138.99</span>
+        </p>
+        <!-- END PRICE ANIMATION BLOCK -->
+
+        <!-- <button class="blz-buy">Buy now</button> -->
+         <button class="add-to-cart blz-buy" 
+        data-title="BlazeTV" 
+        data-price="119" 
+        data-image="cartbltv.png">
+        Add to cart
+      </button>
+      </div>
+    </div>
+
+    
+  </div>
+</section>
+
+<script>
+  const allOptions = document.querySelectorAll('.blz-option');
+  const totalEl = document.getElementById('blz-total');
+
+  function updateActiveStates() {
+    allOptions.forEach(option => {
+      const input = option.querySelector('input');
+      option.classList.toggle('blz-option--active', input.checked);
+    });
+  }
+
+  function calculateTotal() {
+  let total = 0;
+
+  document.querySelectorAll('input[type="radio"]:checked').forEach(input => {
+    total += Number(input.value);
+  });
+
+  totalEl.classList.remove('blz-price-animate');
+  void totalEl.offsetWidth;
+  totalEl.textContent = total.toFixed(2);
+  totalEl.classList.add('blz-price-animate');
+}
+
+
+  document.querySelectorAll('input').forEach(input => {
+    input.addEventListener('change', () => {
+      updateActiveStates();
+      calculateTotal();
+    });
+  });
+
+  updateActiveStates();
+  calculateTotal();
+</script>
+
+    <section class="bl-tv-sect">
+  <section class="bl-tv-sect">
+  <div class="bl-tv-wrap">
+    <img src="BLAZETVY.png" alt="BlazeTV" class="bl-tv-image">
+
+    <p class="ttlbtv1 blz-reveal blz-delay-1">BlazeTV</p>
+    <p class="ttlbtv2 blz-reveal blz-delay-2">
+      You get 4K screen quality, 64GB or 128GB storage, there is a WI-FI connection.
+      In addition, there is a gift for a monthly subscription to Flow+
+    </p>
+  </div>
+</section>
+
+</section>
+
+
+<section class="sect5">
+        <p class="foot">Testing conducted by Blazery Labs in January and February 2025 using Blazery 4 with prerelease BSP 5 software, and in May 2025 using Blazery 5 with prerelease BSP 6 software. Devices were tested under controlled conditions with prerelease hardware, operating system builds, and Blazery-certified accessories. Test scenarios included application performance, multitasking stability, battery endurance, and data security evaluations. Results demonstrated consistent stability of BSP under extended usage scenarios, with no system-level vulnerabilities observed during laboratory conditions. Performance depends on device configuration, software version, usage environment, and many other factors. Actual performance may vary. <br><br>
+
+            Blazery Apps are distributed exclusively through StorePay, the official Blazery application marketplace. Some applications may require an active Blazery account and sufficient StorePay balance for download or subscription. Exclusive titles such as Sentura Clicker 2 for Blazery are available only within StorePay. App availability and functionality may differ depending on the device, BSP version, and region.<br><br>
+
+KeyPay functionality is supported on Blazery 3 and later devices running BSP 4 or newer. Transactions require an active internet connection. Availability may vary depending on region, currency, and financial institution compatibility.<br><br>
+
+Blazery OS (BSP) is designed with a simplified yet secure system structure. Because of its minimalistic kernel exposure, external unauthorized access to data is not technically feasible under normal conditions. Independent security testing was conducted at Blazery Labs in 2025 with simulated intrusion attempts. Results confirmed that unauthorized extraction of personal data could not be replicated. Security may be affected by user behavior, app installation, and external conditions.<br><br>
+
+Battery performance testing conducted by Blazery Labs in May 2025 using preproduction Blazery 5 units with BSP 6. Devices were connected to Wi-Fi networks under standard indoor environmental conditions. Testing consisted of complete discharge cycles, including 10 hours of BlazeTV streaming, Blazery App usage, and standby with notifications enabled. Battery life varies by configuration, network conditions, features enabled, and many other factors.<br><br>
+
+Charging tests were conducted using Blazery Fast Charging USB-C Cable (Model B2515) and Blazery 25W USB-C Power Adapter (Model B2305). Charging time varies depending on power adapter, regional standards, initial battery condition, and environmental temperature. Actual results will vary.<br><br>
+
+Future Blazery features may include wellness and training applications for Blazery Watch and compatible devices. These features are intended solely for personal fitness and general well-being purposes and are not designed for medical use. Availability depends on software updates, regulatory clearance, and regional support.<br><br>
+
+Language and feature availability varies by market. StorePay, KeyPay, BlazeTV, and Blazery Apps are supported in selected regions, including Sentura, SN states, RU, BY, US, AU, and selected countries in AF. Not all services are available in every country or region, and some features may require the latest BSP updates. For complete details on language and regional support, see support.blazery.com/availability.<br><br>
+
+All-day usage estimates are based on Blazery internal testing, which simulated a mixed-use profile including app use, messaging, browsing, and media playback. Testing conducted on prerelease hardware and software. Features described may be modified, delayed, or removed prior to commercial release.<br><br>
+
+All Blazery products are subject to regional availability, regulatory requirements, and applicable laws. Some features, apps, or accessories may not be offered in all areas. For more information, visit blazery.com/legal. All of the above sites are under development.<br><br>
+
+Service coverage under Blazery Safe is available only for covered Blazery-branded BlazeOS laptops and their original included accessories. It provides protection against (i) defects in materials or workmanship and (ii) unlimited incidents of accidental damage within Sentura (SR). Accidental Damage means physical damage from handling due to unexpected and unintentional events. Blazery Safe with Theft and Loss, available exclusively within the States of Sentura, adds coverage for theft and loss of the covered laptop. Blazery Safe is subject to eligibility rules; enrollment may require inspection and a diagnostic check. Laptops must be less than 30 days old from the original date of purchase to enroll, and only devices registered to your Blazery Account can be covered. Replacement equipment that Blazery provides as part of the repair or replacement service may contain new or refurbished genuine Blazery parts that have been tested and pass Blazery functional requirements. There are no service fees for mechanical failures. Each incident of accidental damage protection is subject to a service fee plus applicable tax. If you have Blazery Safe with Theft and Loss, each incident of theft or loss is subject to a deductible plus applicable tax. For complete details, see the Blazery Safe Terms and Conditions and the Theft and Loss Insurance Documentation applicable within Sentura.<br><br>
+
+Theft and loss claims are for BlazeOS laptops only. Each claim is subject to a deductible. While the plan is active and in effect, claim limits reset every 12 months: two claims for theft or loss. Theft and loss coverage requires you to have Blazery Find enabled on your device at the time it is lost or stolen. Blazery Find should remain enabled and your device should remain associated with your Blazery Account throughout the theft or loss claim process. During the theft or loss claims process, you will be asked to erase your missing device and disable it before you can be issued a replacement. After initiating your theft or loss claim with Blazery, you will be asked to finalize your claim via the dedicated portal on our website.<br><br>
+
+International replacement of lost or stolen devices is not available. Blazery Safe with Theft and Loss is valid only for incidents occurring within the States of Sentura.<br><br>
+
+Theft and loss coverage does not apply to any accessories, even if lost or stolen with a covered laptop.<br><br>
+
+Local telephone fees may apply. Telephone numbers and hours of operation for Blazery Support may vary and are subject to change.<br><br>
+
+Express Replacement Service (“ERS”) is subject to availability, capability, and local Senturan law at the time you seek service. If your device is replaced with Express Replacement Service, the original product becomes Blazery’s property. The replacement product is your property and becomes the Covered Equipment. You are responsible for backing up all software programs, data, and passwords residing on your original device.<br><br>
+
+The service fee for accidental damage starts at $20, with the final fee determined by the type of damage. Separate service charges apply to each repair or replacement performed. Each incident of theft or loss is subject to a deductible, the amount of which is confirmed at the time of claim. Applicable Senturan taxes may apply. For a complete listing of all Blazery Safe service fees and deductibles, see the Blazery Safe Service Fees. Separate service charges apply to each repair or replacement performed.<br><br>
+
+Blazery Safe plans are separate from and in addition to the Blazery Limited Warranty and any legal rights provided by consumer protection laws in Sentura. Blazery Safe plans are subject to acceptance of the Terms and Conditions. Purchase of any plan is not required to purchase any Blazery device. For complete details, see the Blazery Safe Terms and Conditions.<br><br>
+
+Blazery Safe and Blazery Safe with Theft and Loss are optional programs.<br><br>
+
+Blazery Safe with Theft and Loss is a program that combines service contract benefits with insurance coverage for theft and loss. The service contract obligations are provided by Blazery Service Co., Sentura. The insurance coverage for theft and loss is underwritten by a licensed insurer within Sentura. The program is sold by Blazery Service Co., Sentura. Coverage is subject to applicable terms, conditions, and limitations. See blazery.com/legal/safe for Blazery Safe with Theft and Loss. Theft and loss coverage may be purchased separately. For complete details, please refer to the certificate of coverage for Sentura, available at blazery.com/legal/safe/theftandloss.<br><br>
+
+Footnote. Financing available to qualified customers in Sentura, subject to credit approval and credit limit through Blazery Approval. Taxes and shipping on items purchased using Blazery Approval are subject to your agreement's terms. Blazery Approval is subject to change at any time for any reason. See the Blazery Approval Customer Agreement for more information.<br><br>
+
+Footnote # Trade-in values will vary based on the condition, year, and configuration of your eligible trade-in device. Not all devices are eligible for credit. You must be at least the age of majority in Sentura to be eligible to trade in for credit. Trade-in value may be applied toward qualifying new device purchase. Actual value awarded is based on receipt of a qualifying device matching the description provided when estimate was made. Sales tax may be assessed on full value of a new device purchase. In-store trade-in requires presentation of a valid photo ID. Offer may not be available in all stores. Blazery or its trade-in partners reserve the right to refuse, cancel, or limit quantity of any trade-in transaction for any reason. More details are available from Blazery’s trade-in partner for trade-in and recycling of eligible devices. Restrictions and limitations may apply.<br><br>
+
+Footnote. Discount on first use of Blazery subscription services (e.g., StorePay, Flow+) available with the purchase of an eligible BlazeOS device. An enhanced discount is applied if the purchase was made using a Blazery Cash card or KeyPay Card. Only one discount per Blazery Account. Discounts are applied at checkout for the subscription service. Offers subject to change. Restrictions and other terms apply.<br><br>
+
+We approximate your location from your internet IP address by matching it to a geographic region or from the location entered during your previous visit to Blazery.<br><br>
+</p>
+    </section>
+
+    <script>
+  const revealElements = document.querySelectorAll('.blz-reveal');
+
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('blz-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.4
+    }
+  );
+
+  revealElements.forEach(el => observer.observe(el));
+</script>
+
+<script>
+/* ===== ELEMENTS ===== */
+const cartIcon    = document.getElementById('cartIcon');
+const cartOverlay = document.getElementById('cartOverlay');
+const cartPanel   = document.getElementById('cartPanel');
+const cartClose   = document.getElementById('cartClose');
+const cartItems   = document.querySelector('.cart-items');
+const cartEmpty   = document.querySelector('.cart-empty');
+const cartTotal   = document.getElementById('cartTotal');
+const cartPay     = document.getElementById('cartPay');
+
+/* ===== STATE ===== */
+let cart = JSON.parse(localStorage.getItem('cart'));
+if (!Array.isArray(cart)) cart = [];
+
+/* ===== OPEN / CLOSE ===== */
+function openCart() {
+  cartOverlay.classList.add('active');
+  cartPanel.classList.add('active');
+}
+
+function closeCart() {
+  cartOverlay.classList.remove('active');
+  cartPanel.classList.remove('active');
+}
+
+cartIcon.addEventListener('click', openCart);
+cartOverlay.addEventListener('click', closeCart);
+if (cartClose) cartClose.addEventListener('click', closeCart);
+
+/* ===== UPDATE UI ===== */
+function updateCartUI() {
+  cartItems.innerHTML = '';
+
+  // ВСЕГДА сохраняем
+  localStorage.setItem('cart', JSON.stringify(cart));
+
+  if (cart.length === 0) {
+    cartEmpty.style.display = 'block';
+    cartItems.style.display = 'none';
+    cartPay.style.display = 'none';
+    cartTotal.textContent = '$0.00';
+    return;
+  }
+
+  cartEmpty.style.display = 'none';
+  cartItems.style.display = 'flex';
+  cartPay.style.display = 'block';
+
+  let total = 0;
+
+  cart.forEach((item, index) => {
+    total += item.price;
+
+    const el = document.createElement('div');
+    el.className = 'cart-item';
+    el.innerHTML = `
+      <img src="${item.image}">
+      <div class="cart-item-info">
+        <div class="cart-item-title">${item.title}</div>
+        <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+      </div>
+      <button class="cart-remove" data-index="${index}">✕</button>
+    `;
+    cartItems.appendChild(el);
+  });
+
+  cartTotal.textContent = `$${total.toFixed(2)}`;
+}
+
+/* ===== ADD TO CART ===== */
+document.querySelectorAll('.add-to-cart').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const title = btn.dataset.title || 'Item';
+    const image = btn.dataset.image || '';
+    const price = parseFloat(document.getElementById('blz-total')?.textContent) || 0;
+
+    cart.push({ title, price, image });
+    updateCartUI();
+    openCart();
+  });
+});
+
+/* ===== REMOVE ===== */
+cartItems.addEventListener('click', e => {
+  if (!e.target.classList.contains('cart-remove')) return;
+
+  const index = +e.target.dataset.index;
+  cart.splice(index, 1);
+  updateCartUI();
+});
+
+/* ===== INIT ===== */
+updateCartUI();
+</script>
+
+</body>
+</html>
