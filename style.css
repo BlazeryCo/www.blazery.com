@@ -22,7 +22,7 @@ header {
     position: fixed;
     top: 0;
     width: 100%;
-    background: #ffffffa2;
+    background: #000000a4;
     backdrop-filter: blur(20px);
     z-index: 1001;
     padding: 0;
@@ -58,7 +58,7 @@ header {
     height: 57px;
     width: auto;
     background-image: url('blicon.png');
-    filter: invert(0.8);
+    filter: invert(0.2);
 }
 
 .blazery .nav-logo img {
@@ -106,6 +106,7 @@ header {
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
+    filter: invert(1);
 }
 
 .nav-cart img {
